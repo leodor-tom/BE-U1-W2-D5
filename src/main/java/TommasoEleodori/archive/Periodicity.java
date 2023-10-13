@@ -1,4 +1,4 @@
-package TommasoEleodori.library;
+package TommasoEleodori.archive;
 
 public enum Periodicity {
     WEEKLY,
