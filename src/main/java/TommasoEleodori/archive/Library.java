@@ -1,5 +1,9 @@
 package TommasoEleodori.archive;
 
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,6 +75,37 @@ public class Library {
             System.err.println("No item found with author " + author);
         }
     }
+
+    public void saveToFile(String fileName) {
+        File file = new File(fileName);
+        StringBuilder builder = new StringBuilder();
+        for (Map.Entry<String, Standard> entry : collection.entrySet()) {
+            Standard item = entry.getValue();
+            builder.append(item.getIsbn()).append(",")
+                    .append(item.getTitle()).append(",")
+                    .append(item.getPublicationYear()).append(",")
+                    .append(item.getPageNb()).append(System.lineSeparator());
+        }
+        try {
+            FileUtils.writeStringToFile(file, builder.toString(), "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadFromFile(String filename) {
+        File file = new File(filename);
+        try {
+            String content = FileUtils.readFileToString(file, "UTF-8");
+            String[] lines = content.split(System.lineSeparator());
+            for (String line : lines) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void showCollection() {
         for (Map.Entry<String, Standard> entry : collection.entrySet()) {

@@ -9,7 +9,7 @@ import com.github.javafaker.Faker;
 public class Application {
 
     public static void main(String[] args) {
-
+        String filename = "src/Archive.txt";
         Faker faker = new Faker();
         Book book2 = new Book(faker.book().title(), faker.number().numberBetween(1400, 2023), faker.number().numberBetween(50, 400), "978-3-161-48410-0", faker.book().author(), faker.book().genre());
         Book book = new Book("The Book", 2020, 305, "978-3-16-148410-0", "Mr. Nobody", "sci-fi");
@@ -22,6 +22,8 @@ public class Application {
         Library.getInstance().searchByISBN("978-3-161-48410-0");
         Library.getInstance().searchByPublicationYear(2020);
         Library.getInstance().searchByAuthor("Mr. NoBody");
+        Library.getInstance().saveToFile(filename);
+        Library.getInstance().loadFromFile(filename);
 
     }
 }
